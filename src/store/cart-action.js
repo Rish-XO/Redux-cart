@@ -16,7 +16,7 @@ export const fetchCartData = () => {
     };
     try {
       const cartData = await fetchData();
-      dispatch(cartActions.replaceCart(cartData))
+      dispatch(cartActions.replaceCart(cartData));
     } catch (error) {
       dispatch(
         uiActions.showNotification({
@@ -44,7 +44,10 @@ export const sendCartData = (cart) => {
         "https://react-http-bff42-default-rtdb.firebaseio.com/cart.json",
         {
           method: "PUT",
-          body: JSON.stringify(cart),
+          body: JSON.stringify({
+            items: cart.items,
+            totalQuantity: cart.totalQuantity,
+          }),
         }
       );
       if (!response.ok) {
@@ -71,3 +74,5 @@ export const sendCartData = (cart) => {
     }
   };
 };
+
+
